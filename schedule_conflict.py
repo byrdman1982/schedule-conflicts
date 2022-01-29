@@ -1,15 +1,17 @@
 #!/usr/bin/python3
-## \author Tom Robinson
-## \description This python program will evaluate a schedule in the following format
-## \verbatim
-## hh:mm - hh:mm
-## \endverbatim
-## and search for conflicts in the schedule
 
-## A recursive function the will figure out if conflicts occur
-## This function descends the list
+## @file schedule_conflicts.py
+# @author Tom Robinson
+# @description This python program will evaluate a schedule in the following format
+# @verbatim
+# hh:mm - hh:mm
+# @endverbatim
+# and search for conflicts in the schedule
+
+## @brief A recursive function the will figure out if conflicts occur
+# This function descends the list
 def find_conflicts(times_list,times_string,conflicts_list,i):
-#  Save the i value, but give j the value of i to start
+## Save the i value, but give j the value of i to start
   j = i
 #Set up the base time
   hs1 = times_list[i]['h1']
@@ -17,21 +19,21 @@ def find_conflicts(times_list,times_string,conflicts_list,i):
   he1 = times_list[i]['h2']
   me1 = times_list[i]['m2']
 
-#convert to floats for comparisons
+## convert to floats for comparisons
   fs1=float(hs1+(ms1/60.))
   fe1=float(he1+(me1/60.))
 
   while j < len(times_list)-1:
     j=j+1
-#Set up the time to compare
+## Set up the time to compare
     hs2 = times_list[j]['h1']
     ms2 = times_list[j]['m1']
     he2 = times_list[j]['h2']
     me2 = times_list[j]['m2']
-# Convert to floats for comparisons
+## Convert to floats for comparisons
     fs2=float(hs2+(ms2/60.))
     fe2=float(he2+(me2/60.))
-# Compare to see if there is a conflict
+## Compare to see if there is a conflict
     if (fe1 > fs2 and fs1 < fe2):
       conflicts_list.append("conflict: "+times_string[i]['t1']+"-"+times_string[i]['t2']+" with "+times_string[j]['t1']+"-"+times_string[j]['t2'])
       print ("conflict: "+times_string[i]['t1']+"-"+times_string[i]['t2']+" with "+times_string[j]['t1']+"-"+times_string[j]['t2'])
@@ -67,12 +69,5 @@ for line in file_obj:
 ## Find and print conflicts.  The conflicts are stored in a list as well
 conflicts_list=[]
 i=(find_conflicts(times_list,times_string,conflicts_list,len(times_list)-1))
-
-quit()
-
-
-
-
-
 
 
