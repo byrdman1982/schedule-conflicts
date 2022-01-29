@@ -6,9 +6,9 @@
 ## \endverbatim
 ## and search for conflicts in the schedule
 
-
-## A recursive function the will print out if conflicts occur
-def find_conflicts(times_list,times_string,i):
+## A recursive function the will figure out if conflicts occur
+## This function descends the list
+def find_conflicts(times_list,times_string,conflicts_list,i):
 #  Save the i value, but give j the value of i to start
   j = i
 #Set up the base time
@@ -32,14 +32,29 @@ def find_conflicts(times_list,times_string,i):
     fs2=float(hs2+(ms2/60.))
     fe2=float(he2+(me2/60.))
 # Compare to see if there is a conflict
-    if fe1 > fs2 and fs1 < fs2:
-      print ("conflict",times_string[i]['t1'],"-",times_string[i]['t2']," with ",times_string[j]['t1'],"-",times_string[j]['t2'])
+#    print (fe1,fs2,fe1>fs2,fs1,
+    if (fe1 > fs2 and fs1 < fe2):
+      conflicts_list.append("conflict: "+times_string[i]['t1']+"-"+times_string[i]['t2']+" with "+times_string[j]['t1']+"-"+times_string[j]['t2'])
+      print ("conflict: "+times_string[i]['t1']+"-"+times_string[i]['t2']+" with "+times_string[j]['t1']+"-"+times_string[j]['t2'])
 ## Either recall the function or end the recursion
   if i == 0:
 ## At the end of the iteration return 0
     return i 
   else:
-    return find_conflicts(times_list,times_string,i-1)
+    return find_conflicts(times_list,times_string,conflicts_list,i-1)
+
+## A function that checks for duplicates
+def dups(c,i):
+  j = i
+  print_flag = 0
+# Loop through the part of the list that is before this element
+  while j < len(c)-1:
+    j = j+1
+    if c[i] == c[j]:
+      # Switch the flag to not print
+      print_flag = 1 
+  return print_flag
+ 
 #
 ###############################################################################################
 #
@@ -62,8 +77,16 @@ for line in file_obj:
    ts={"t1":t1_string.strip(), "t2":t2_string.strip()}
    times_string.append(ts)
    ntimes = ntimes + 1
-
-i=(find_conflicts(times_list,times_string,len(times_list)-1))
+##
+conflicts_list=[]
+## Check for conflicts
+i=(find_conflicts(times_list,times_string,conflicts_list,len(times_list)-1))
+## Check for duplicates and print
+k=0
+while k < len(conflicts_list):
+  if dups(conflicts_list,k) == 0:
+    print(conflicts_list[k])
+  k=k+1
 
 quit()
 
