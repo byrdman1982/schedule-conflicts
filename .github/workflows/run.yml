@@ -27,7 +27,7 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run: cd schedule-conflicts && ./schedule_conflicts.py
+        run: cd $GITHUB_WORKSPACE && ./schedule_conflicts.py
 
 #     # Runs a set of commands using the runners shell
 #     - name: Run a multi-line script
