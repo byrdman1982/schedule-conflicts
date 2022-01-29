@@ -65,6 +65,7 @@ for line in file_obj:
    times_string.append(ts)
    ntimes = ntimes + 1
 ## Find and print conflicts.  The conflicts are stored in a list as well
+conflicts_list=[]
 i=(find_conflicts(times_list,times_string,conflicts_list,len(times_list)-1))
 
 quit()
