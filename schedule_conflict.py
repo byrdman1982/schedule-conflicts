@@ -32,7 +32,6 @@ def find_conflicts(times_list,times_string,conflicts_list,i):
     fs2=float(hs2+(ms2/60.))
     fe2=float(he2+(me2/60.))
 # Compare to see if there is a conflict
-#    print (fe1,fs2,fe1>fs2,fs1,
     if (fe1 > fs2 and fs1 < fe2):
       conflicts_list.append("conflict: "+times_string[i]['t1']+"-"+times_string[i]['t2']+" with "+times_string[j]['t1']+"-"+times_string[j]['t2'])
       print ("conflict: "+times_string[i]['t1']+"-"+times_string[i]['t2']+" with "+times_string[j]['t1']+"-"+times_string[j]['t2'])
@@ -43,18 +42,6 @@ def find_conflicts(times_list,times_string,conflicts_list,i):
   else:
     return find_conflicts(times_list,times_string,conflicts_list,i-1)
 
-## A function that checks for duplicates
-def dups(c,i):
-  j = i
-  print_flag = 0
-# Loop through the part of the list that is before this element
-  while j < len(c)-1:
-    j = j+1
-    if c[i] == c[j]:
-      # Switch the flag to not print
-      print_flag = 1 
-  return print_flag
- 
 #
 ###############################################################################################
 #
@@ -77,16 +64,8 @@ for line in file_obj:
    ts={"t1":t1_string.strip(), "t2":t2_string.strip()}
    times_string.append(ts)
    ntimes = ntimes + 1
-##
-conflicts_list=[]
-## Check for conflicts
+## Find and print conflicts.  The conflicts are stored in a list as well
 i=(find_conflicts(times_list,times_string,conflicts_list,len(times_list)-1))
-## Check for duplicates and print
-k=0
-while k < len(conflicts_list):
-  if dups(conflicts_list,k) == 0:
-    print(conflicts_list[k])
-  k=k+1
 
 quit()
 
