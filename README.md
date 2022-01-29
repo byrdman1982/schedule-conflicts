@@ -1,5 +1,6 @@
-# schedule-conflicts
+# schedule-conflicts Report
 
+## schedule_conflict.py
 This program is written in python because I find python to be quite easy and straightforward to 
 handle and parse strings.  Because the input is formatted, the design is very simple:
 1. Open the file
@@ -8,16 +9,16 @@ handle and parse strings.  Because the input is formatted, the design is very si
 4. Save the number strings for possible printing
 5. Compare the times
 
-After [opening the file](https://github.com/byrdman1982/schedule-conflicts/blob/main/schedule_conflict.py#L62),
-I [parsed it line by line](https://github.com/byrdman1982/schedule-conflicts/blob/main/schedule_conflict.py#L67),
-[cut out the -s](https://github.com/byrdman1982/schedule-conflicts/blob/main/schedule_conflict.py#L69),
+After [opening the file](https://github.com/byrdman1982/schedule-conflicts/blob/main/schedule_conflict.py#L49),
+I [parsed it line by line](https://github.com/byrdman1982/schedule-conflicts/blob/main/schedule_conflict.py#L54),
+[cut out the -s](https://github.com/byrdman1982/schedule-conflicts/blob/main/schedule_conflict.py#L56),
 and 
 [pulled out the hour and minute values](https://github.com/byrdman1982/schedule-conflicts/blob/main/schedule_conflict.py#L75).
 I created a 
 [list of dictionaries](https://github.com/byrdman1982/schedule-conflicts/blob/main/schedule_conflict.py#L75) 
 because I find handlng lists to be easy and I thought a dictionary would be the best way to store the data. I also
 saved the
-[times as strings in a dictionary](https://github.com/byrdman1982/schedule-conflicts/blob/main/schedule_conflict.py#L78)
+[times as strings in a dictionary](https://github.com/byrdman1982/schedule-conflicts/blob/main/schedule_conflict.py#L62)
 to make printing easier later.  I ended up doing this after I wrote the code for the comparisons realizing I needed
 to do this printing.
 
@@ -28,7 +29,7 @@ This made the
 [comparison quite simple](https://github.com/byrdman1982/schedule-conflicts/blob/main/schedule_conflict.py#L36).
 I used local variables to make the coding easier to read. After I figured out how to compare the values, 
 I decided to (learn how to in python) 
-[create a recursive function](https://github.com/byrdman1982/schedule-conflicts/blob/main/schedule_conflict.py#L44) 
+[create a recursive function](https://github.com/byrdman1982/schedule-conflicts/blob/main/schedule_conflict.py#L43) 
 to deal with the comparisons. I've done this in Fortran, but never in python, so I was familiar with the
 concept, just not the syntax in python.  It was very easy though.  The function gets an index for the list, and then
 [iterates through the rest of the list through all of the times with a higher index than its 
@@ -40,3 +41,8 @@ they do not start with 0, they start with 1.\</rant>
 
 I also saved the conflicts, as this "will be used operationally", but it was never discussed how it would be used.  If it is
 going to be part of a large program, the conflicts are recorded for the future use.
+
+## Running
+After a few attempts, I was able to set up a GitHub action to run the schedule_conflict.py program.  The CI uses an intel 
+oneapi container to get python and run the script.  The details are in the 
+[run.yaml](https://github.com/byrdman1982/schedule-conflicts/blob/main/.github/workflows/run.yml)
